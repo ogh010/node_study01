@@ -1,5 +1,6 @@
 
 const express = require('express');
+var bodyParser = require('body-parser')
 const app = express();
 // 모듈 임포트 및 애플리케이션 생성
 // express 모듈을 가져오고 express 애플리케이션을 생성합니다.
@@ -13,6 +14,34 @@ app.set('views','./views');
 
 app.use(express.static('public'));
 // public 디렉터리에서 정적파일 ㅇ르 제공하기 위한 미들웨어로 설정합니다.
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// ************* post (form) *************
+
+app.post('/form_receiver',function(req,res){
+    let title = req.body.title;
+    let description = req.body.description;
+    res.send(title+','+description)
+});
+
+// ************* post (form) *************
+
+
+// ************* get (form) *************
+
+app.get('/form',function(req,res){
+    res.render('form');
+});
+
+app.get('/form_receiver',function(req,res){
+    let  title = req.query.title;
+    let description = req.query.description;
+    res.send(title+','+description);
+})
+
+// ************* get (form) *************
+
 
 // ************* 쿼리스트링 *************
 
